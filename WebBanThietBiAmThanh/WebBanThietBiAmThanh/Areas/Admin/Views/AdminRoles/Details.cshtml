@@ -1,0 +1,40 @@
+﻿@model WebBanThietBiAmThanh.Models.Role
+
+@{
+    ViewData["Title"] = "Thông Tin Quyền Truy Cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="header-sub-title">
+    <nav class="breadcrumb breadcrumb-dash">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+        <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quản Lý Quyền Truy Cập</a>
+        <span class="breadcrumb-item active">Thông Tin</span>
+    </nav>
+</div>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông Tin</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+            
+                    <tr>
+                        <td>Tên</td>
+                        <td>@Model.RoleName</td>
+                    </tr>
+                    <tr>
+                        <td>Mô Tả</td>
+                        <td>@Model.Description</td>
+                    </tr>
+              
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-primary m-r-5" asp-action="Edit" asp-route-id="@Model.RoleId">Sửa</a>
+    <a class="btn btn-default m-r-5" asp-action="Index">Trở về</a>
+</div>

@@ -1,0 +1,61 @@
+﻿@model WebBanThietBiAmThanh.Models.Category
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="header-sub-title">
+    <nav class="breadcrumb breadcrumb-dash">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+        <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">Quản Lí Danh Mục</a>
+        <span class="breadcrumb-item active">Chi Tiết Danh Mục</span>
+    </nav>
+</div>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi Tiết Sản Phẩm</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+
+                    <tr>
+                        <td>Tên Danh Mục:</td>
+                        <td>@Model.CatName</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh Danh Mục: </td>
+                        <td>
+                            <img width="200" height="200" style="object-fit:cover;" src="~/images/categories/@Model.Thumb" alt="@Model.Title" />
+                        </td>
+                    </tr>
+                        
+                    <tr>
+                        <td>Công Khai :</td>
+                        <td>
+                            @if (Model.Published)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đang Công Khai</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Không Công Khai</label>
+                                </div>
+                            }
+                        </td>
+                    </tr
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-primary m-r-5" asp-action="Edit" asp-route-id="@Model.CatId">Sửa</a>
+    <a class="btn btn-default m-r-5" asp-action="Index">Trở về</a>
+</div>

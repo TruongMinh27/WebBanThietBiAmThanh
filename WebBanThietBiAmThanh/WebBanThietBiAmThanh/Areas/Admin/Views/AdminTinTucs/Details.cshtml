@@ -1,0 +1,110 @@
+﻿@model WebBanThietBiAmThanh.Models.TinTuc
+
+@{
+    ViewData["Title"] = "Chi Tiết Tin Tức";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="header-sub-title">
+    <nav class="breadcrumb breadcrumb-dash">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+        <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Quản Tin Tức</a>
+        <span class="breadcrumb-item active">Chi Tiết Tin Tức</span>
+    </nav>
+</div>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi Tiết Tin Tức</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+
+                    <tr>
+                        <td>Tên Tin :</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>Mô Tả Ngắn:</td>
+                        <td>@Model.Scontents</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh Sản Phẩm : </td>
+                        <td>
+                            <img width="200" height="200" style="object-fit:cover;" src="~/images/tintucs/@Model.Thumb" alt="@Model.Thumb" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thời Gian Tạo :</td>
+                        <td>@Model.CreatedDate</td>
+                    </tr>
+                    <tr>
+                        <td>Công khai :</td>
+                        <td>
+                            @if (Model.Published)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đã công khai</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Chưa Công Khai</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tin Hot :</td>
+                        <td>
+                            @if (Model.IsHot)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Hot</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Non-Hot</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>New Feed :</td>
+                        <td>
+                            @if (Model.IsNewfeed)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đang trên NewFeed</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Không trên NewFeed</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alias :</td>
+                        <td>@Model.Alias</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-primary m-r-5" asp-action="Edit" asp-route-id="@Model.PostId">Sửa</a>
+    <a class="btn btn-default m-r-5" asp-action="Index">Trở về</a>
+</div>

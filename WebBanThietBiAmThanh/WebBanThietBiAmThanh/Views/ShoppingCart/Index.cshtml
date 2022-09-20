@@ -1,0 +1,173 @@
+﻿@model List<WebBanThietBiAmThanh.ModelViews.CartItem>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/assets/images/applications-hero-home-studio.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home</a></span> <span>Giỏ Hàng</span></p>
+                <h1 class="mb-0 bread">Giỏ Hàng Của Tôi</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ftco-animate">
+                <div class="cart-list">
+                    <table class="table">
+                        <thead class="thead-primary">
+                            <tr class="text-center">
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr class="text-center">
+                                        <td class="product-remove"><a class="removecart" data-mahh="@item.product.ProductId"><span class="ion-ios-close"></span></a></td>
+
+                                        <td class="image-prod"><div class="img" style="background-image:url(/images/products/@item.product.Thumb);"></div></td>
+
+                                        <td class="product-name">
+                                            <h3>@item.product.ProductName</h3>
+                                            <p>@item.product.ShortDesc</p>
+                                        </td>
+
+                                        <td class="price">@item.product.Price.Value.ToString("#,##0") VNĐ</td>
+
+                                        <td class="quantity">
+                                            <div class="">
+
+
+                                                <input data-mahh="@item.product.ProductId" data-dongia="@item.product.Price" type="number" class="cartItem form-control input-number" value="@item.amount" min="1" max="100">
+
+
+                                            </div>
+                                        </td>
+
+                                        <td class="total">@item.amount x @item.product.Price.Value.ToString("#,##0") VNĐ</td>
+                                    </tr><!-- END TR-->
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <h3>Chưa có sản phẩm nào trong giỏ hàng <a href="/shop.html">mua thêm hàng ngay</a> </h3>
+                                </tr>
+                            }
+
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            @if (Model != null && Model.Count() > 0)
+            {
+
+
+                <div class="col mt-5 cart-wrap ftco-animate">
+                    <div class="cart-total mb-3">
+                        <h3>Thành Tiền</h3>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span>Tổng Giá Tiền</span>
+                            <span>@Model.Sum(x => x.TotalMoney).ToString("#,##0") VNĐ</span>
+                        </p>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p><a href="/checkout.html" class="btn btn-primary py-3 px-4">Thanh Toán</a></p>
+                    }
+                    else
+                    {
+                        <p><a href="/dang-ky.html?returnUrl=cart.html" class="btn btn-primary py-3 px-4">Thanh Toán</a></p>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col mt-5 cart-wrap ftco-animate">
+
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+
+    <script>
+
+        $(function () {
+            function loadHeaderCart() {
+                $("#numberCart").load("/AjaxContent/NumberCart");
+            }
+
+            $(".removecart").click(function () {
+
+                var productid = $(this).attr("data-mahh");
+
+                $.ajax({
+                    url: "api/cart/remove",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: { productID: productid },
+                    success: function (result) {
+
+                        if (result.success) {
+                            loadHeaderCart();
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error !");
+                    }
+                });
+            });
+
+            $(".cartItem").click(function () {
+
+                var productid = $(this).attr("data-mahh");
+                var soluong = parseInt($(this).val());
+                $.ajax({
+                    url: "api/cart/update",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productid,
+                        amount: soluong
+                    },
+                    success: function (result) {
+
+                        if (result.success) {
+                            loadHeaderCart();
+                            window.location = 'cart.html';
+                        }
+                    },
+                    error: function (rs) {
+                        alert("Cập nhật Cart Error !");
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+

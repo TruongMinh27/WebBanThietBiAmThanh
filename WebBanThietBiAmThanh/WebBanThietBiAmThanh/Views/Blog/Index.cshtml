@@ -1,0 +1,148 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<WebBanThietBiAmThanh.Models.TinTuc>
+
+
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Tin Tức : " + CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int PageCurrent = CurrentPage;
+    int PageNext = CurrentPage + 1;
+    List<TinTuc> Baivietlienquan = ViewBag.Baivietlienquan;
+    List<Category> DanhMucSanPham = ViewBag.DanhMucSanPham;
+
+}
+
+
+<div class="hero-wrap hero-bread" style="background-image: url('/assets/images/applications-hero-home-studio.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
+                <h1 class="mb-0 bread">Tin Nổi Bật</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ftco-animate">
+                <div class="row">
+                    @if (Model != null && Model.Count() > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            string url = $"tin-tuc/{item.Alias}-{item.PostId}.html";
+                            <div class="col-md-12 d-flex ftco-animate">
+                                <div class="blog-entry align-self-stretch d-md-flex">
+                                    <a href="@url" class="block-20" style="background-image: url('/images/tintucs/@item.Thumb');">
+                                    </a>
+                                    <div class="text d-block pl-md-4">
+                                        <div class="meta mb-3">
+                                            <div>@item.CreatedDate.Value.ToShortDateString()</div>
+                                            <div><p class="meta-chat"><span class="icon-chat"></span></p></div>
+                                        </div>
+                                        <h3 class="heading"><a href="@url">@item.Title</a></h3>
+                                        <p>@item.Scontents</p>
+                                        <p><a href="@url" class="btn btn-primary py-2 px-3">Xem Thêm</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    <div class="row mt-5">
+                        <div class="col text-center">
+                            <div class="block-27">
+                                <ul>
+                                    <li> <pager list="@Model" asp-area="" options="@PagedListRenderOptions.PageNumbersOnly" asp-controller="Blog" asp-action="Index" /> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+            <div class="col-lg-4 sidebar ftco-animate">
+                <div class="sidebar-box">
+                   
+                </div>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading">Xem Các Loại Sản Phẩm</h3>
+                    <ul class="categories">
+                        @if (DanhMucSanPham != null && DanhMucSanPham.Count() > 0)
+                        {
+                            foreach (var item in DanhMucSanPham)
+                            {
+
+                                <li><a href="/@item.Alias">@item.CatName <span></span></a></li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading">Tin Khác</h3>
+
+                    @if (Baivietlienquan != null && Baivietlienquan.Count() > 0)
+                    {
+                        foreach (var item in Baivietlienquan)
+                        {
+                            string _url = $"tin-tuc/{item.Alias}-{item.PostId}.html";
+
+                            <div class="block-21 mb-4 d-flex">
+                                <a class="blog-img mr-4" style="background-image: url(/images/tintucs/@item.Thumb);"></a>
+                                <div class="text">
+                                    <h3 class="heading-1"><a href="@_url">@item.Title</a></h3>
+                                    <div class="meta">
+                                        <div><a href="@_url"><span class="icon-calendar"></span>@item.CreatedDate</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                   
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                   
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+@section Scripts{
+
+    <script>
+
+        $(".keyword").keyup(function () {
+            var strkeyword = $('.keyword').val();
+            $.ajax({
+                url: '/Admin/Search/FindProduct/',
+                datatype: "json",
+                type: "POST",
+                data: { keyword: strkeyword },
+                async: true,
+                success: function (results) {
+                    $("#records_table").html("");
+                    $("#records_table").html(results);
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+        });
+
+    </script>
+}

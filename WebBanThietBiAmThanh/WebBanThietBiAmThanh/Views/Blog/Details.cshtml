@@ -1,0 +1,122 @@
+﻿@model WebBanThietBiAmThanh.Models.TinTuc
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = $"{Model.Alias}-{Model.PostId}.html";
+    List<TinTuc> Baivietlienquan = ViewBag.Baivietlienquan;
+    List<Category> DanhMucSanPham = ViewBag.DanhMucSanPham;
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/assets/images/applications-hero-home-studio.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
+                <h1 class="mb-0 bread">Blog</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8 ftco-animate">
+                <h2 class="mb-3">@Model.Title</h2>
+                <p>@Model.Scontents</p>
+                <p>
+                    <img src="/images/tintucs/@Model.Thumb" alt="" class="img-fluid">
+                </p>
+                <p>@Model.Contents</p>
+
+               
+
+               
+
+                <div class="pt-5 mt-5">
+                    <h3 class="mb-5">Bình Luận</h3>
+                    
+                    <!-- END comment-list -->
+
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Viết nhận xét</h3>
+                        <form action="#" class="p-5 bg-light">
+                            <div class="form-group">
+                                <label for="name">Tên *</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="website">Website</label>
+                                <input type="url" class="form-control" id="website">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Bình Luận</label>
+                                <textarea name="" id="message" cols="30" rows="10" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Đăng Bình Luận" class="btn py-3 px-4 btn-primary">
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div> <!-- .col-md-8 -->
+            <div class="col-lg-4 sidebar ftco-animate">
+                <div class="sidebar-box">
+                    
+                </div>
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading">Xem Các Loại Sản Phẩm</h3>
+                    <ul class="categories">
+
+                        @if (DanhMucSanPham != null && DanhMucSanPham.Count() > 0)
+                        {
+                            foreach (var item in DanhMucSanPham)
+                            {
+                                
+                                <li><a href="/@item.Alias">@item.CatName <span></span></a></li>
+                            }
+
+                        }
+                            </ul>
+                </div>
+
+                <div class="sidebar-box ftco-animate">
+                    <h3 class="heading">Tin Khác</h3>
+
+                    @if (Baivietlienquan != null && Baivietlienquan.Count() > 0)
+                    {
+                        foreach (var item in Baivietlienquan)
+                        {
+                            string _url = $"{Model.Alias}-{Model.PostId}.html";
+
+                            <div class="block-21 mb-4 d-flex">
+                                <a class="blog-img mr-4" style="background-image: url(/images/tintucs/@item.Thumb);"></a>
+                                <div class="text">
+                                    <h3 class="heading-1"><a href="@_url">@item.Title</a></h3>
+                                    <div class="meta">
+                                        <div><a href="@_url"><span class="icon-calendar"></span>@item.CreatedDate</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+
+
+                </div>
+
+               
+            </div>
+
+        </div>
+    </div>
+</section> 

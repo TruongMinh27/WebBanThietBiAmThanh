@@ -1,0 +1,74 @@
+﻿@model WebBanThietBiAmThanh.Models.Customer
+
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/assets/images/applications-hero-home-studio.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Thông Tin Tài Khoản</span></p>
+                <h1 class="mb-0 bread">Thông Tin Tài Khoản</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section bg-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+           
+            <div class="col-md bg-light">
+                <div class="row mt-5 pt-3">
+                    <div class="col-md-12 d-flex mb-5">
+                        <div class="cart-detail cart-total p-3 p-md-4">
+                            <h3 class="billing-heading mb-4">Thông Tin Tài Khoản</h3>
+                            <p class="d-flex">Xin Chào : @Model.FullName (Nếu không phải bạn hãy / <a href="/dang-xuat.html"> Đăng Xuất</a>)</p>
+                                <hr />
+                            <p class="d-flex">
+                                <span>Họ Tên :</span>
+                                <span>@Model.FullName</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Email :</span>
+                                <span>@Model.Email</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Số điện Thoại :</span>
+                                <span>@Model.Phone</span>
+                            </p>
+                            <p class="d-flex">
+                                <span>Ngày Sinh :</span>
+                                @if (Model.Birthday == null)
+                                {
+                                    <span>Chưa nhập</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Birthday</span>
+                                }
+                            </p>
+                            <p class="d-flex">
+                                <span>Địa chỉ :</span>
+                                @if (Model.Location == null)
+                                {
+                                    <span>Chưa nhập</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.Location</span>
+                                }
+
+
+                            </p>
+                            <hr />
+                        </div>
+                    </div>
+                  
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section> <!-- .section -->

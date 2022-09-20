@@ -1,0 +1,56 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-dark  bg-dark" style="position:fixed;z-index:1;left:0;top:0;right:0;" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">VSound</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a href="/shop.html" class="nav-link ">Shop</a>
+                    
+                </li>
+                <li class="nav-item"><a href="/About.html" class="nav-link">Về Chúng Tôi</a></li>
+                <li class="nav-item"><a href="/tin-tuc.html" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a asp-controller="Home" asp-action="Contact" class="nav-link">Liên Hệ</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+            <li class="nav-item dropdown">
+                <a href="/tai-khoan.html" class="nav-link dropdown-toggle" id="dropdown04">Tài Khoản</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="/tai-khoan.html">Thông Tin Tài Khoản</a>
+                    <a class="dropdown-item" href="/dang-xuat.html">Đăng Xuất</a>
+                </div>
+
+            </li> }
+                        else
+                        {
+
+            <li class="nav-item dropdown">
+                <a href="/tai-khoan.html" class="nav-link dropdown-toggle" id="dropdown04">Tài Khoản</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                    <a class="dropdown-item" href="/tai-khoan.html">Thông Tin Tài Khoản</a>
+                    <a class="dropdown-item" href="/dang-nhap.html">Đăng Nhập</a>
+                    <a class="dropdown-item" href="/dang-ky.html">Đăng Ký</a>
+                </div>
+            </li>
+}
+
+                @await Component.InvokeAsync("NumberCart")
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<style>
+    .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus,
+    .navbar-dark .navbar-nav .show > .nav-link, .navbar-dark .navbar-nav .active > .nav-link, .navbar-dark .navbar-nav .nav-link.show, .navbar-dark .navbar-nav .nav-link.active {
+        color: #82ae46;
+    }
+    .navbar-dark .navbar-brand {
+        color: #82ae46;
+    }
+  
+</style>

@@ -1,0 +1,38 @@
+﻿@model List<Product>
+@if (Model != null && Model.Count() > 0)
+{
+    foreach (var item in Model)
+    {
+        string url = $"/{item.Alias}-{item.ProductId}.html";
+        <div class="col-md-6 col-lg-3 ftco-animate">
+            <div class="product">
+                <a href="@url" class="img-prod">
+                    <img class="img-fluid" src="/images/products/@item.Thumb" alt="@item.Alias">
+                    <div class="overlay"></div>
+                </a>
+                <div class="text py-3 pb-4 px-3 text-center">
+                    <h3><a href="@url">@item.ProductName</a></h3>
+                    <div class="d-flex">
+                        <div class="pricing">
+                            <p class="price"><span>@item.Price.Value.ToString("#,##0") VNĐ</span></p>
+                        </div>
+                    </div>
+                    <div class="bottom-area d-flex px-3">
+                        <div class="m-auto d-flex">
+                            <a href="@url" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                <span><i class="ion-ios-menu"></i></span>
+                            </a>
+                            <a href="@url" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <span><i class="ion-ios-cart"></i></span>
+                            </a>
+                            <a href="@url" class="heart d-flex justify-content-center align-items-center ">
+                                <span><i class="ion-ios-heart"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}

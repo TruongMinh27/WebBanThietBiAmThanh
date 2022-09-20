@@ -1,0 +1,52 @@
+﻿@model WebBanThietBiAmThanh.Models.Account
+
+@{
+    ViewData["Title"] = "Tạo Mới Tài Khoản Quản Trị";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-controller="AdminAccounts" asp-action="Create" method="post">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Tên</label>
+        <div class="col-sm-4">
+            <input type="email" class="form-control" asp-for="FullName" id="inputEmail3" placeholder="Họ Tên">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-4">
+            <input type="email" class="form-control" asp-for="Email" id="inputEmail3" placeholder="Email">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Số Điện Thoại</label>
+        <div class="col-sm-4">
+            <input type="email" class="form-control" asp-for="Phone" id="inputEmail3" placeholder="Số điện thoại">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Quyền Truy Cập</label>
+        <div class="col-sm-4">
+            <select class="form-control" asp-for="RoleId" asp-items="@ViewBag.QuyenTruyCap" required>
+
+                <option value="0" disabled selected>Chọn Quyền truy cập</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">Active</div>
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <input type="checkbox" checked id="gridCheck1">
+                <label for="gridCheck1">
+                    Kích Hoạt Ngay
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Đăng Ký</button>
+        </div>
+    </div>
+</form>

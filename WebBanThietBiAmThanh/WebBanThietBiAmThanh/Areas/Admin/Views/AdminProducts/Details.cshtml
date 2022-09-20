@@ -1,0 +1,144 @@
+﻿@model WebBanThietBiAmThanh.Models.Product
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="header-sub-title">
+    <nav class="breadcrumb breadcrumb-dash">
+        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+        <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Quản Lí Sản Phẩm</a>
+        <span class="breadcrumb-item active">Chi Tiết Sản Phẩm</span>
+    </nav>
+</div>
+<hr>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Chi Tiết Sản Phẩm</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+
+                    <tr>
+                        <td>Tên Sản Phẩm :</td>
+                        <td>@Model.ProductName</td>
+                    </tr>
+                    <tr>
+                        <td>Mô Tả Ngắn :</td>
+                        <td>@Model.ShortDesc</td>
+                    </tr>
+                    <tr>
+                        <td>Mô Tả Chi Tiết :</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Giá Bán :</td>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr>
+                        <td>Giảm Giá :</td>
+                        <td>@Model.Discount</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh Sản Phẩm : </td>
+                        <td>
+                            <img width="200" height="200" style="object-fit:cover;" src="~/images/products/@Model.Thumb" alt="@Model.Title" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Video :</td>
+                        <td>@Model.Video</td>
+                    </tr>
+                    <tr>
+                        <td>Thời Gian Tạo :</td>
+                        <td>@Model.DateCreated</td>
+                    </tr>
+                    <tr>
+                        <td>Được được sửa lúc :</td>
+                        <td>@Model.DateModified</td>
+                    </tr>
+                    <tr>
+                        <td>Bán Chạy :</td>
+                        <td>
+                            @if (Model.BestSellers)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đã đưa vào mục bán chạy</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Chưa đưa vào mục bán chạy</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ghim Lên Trang Chủ :</td>
+                        <td>
+                            @if (Model.HomeFlag)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đã ghim vào trang chủ</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Chưa ghim vào trang chủ</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Công Khai :</td>
+                        <td>
+                            @if (Model.Active)
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox4" type="checkbox" checked="" disabled="">
+                                    <label for="checkbox4">Đang Công Khai</label>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="checkbox">
+                                    <input id="checkbox3" type="checkbox" disabled="">
+                                    <label for="checkbox3">Không Công Khai</label>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Thẻ :</td>
+                        <td>@Model.Tags</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu Đề :</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>Số Lượng :</td>
+                        <td>@Model.UnitInStock</td>
+                    </tr>
+                    <tr>
+                        <td>Danh mục :</td>
+                        <td>@Model.Cat.CatName</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    <a class="btn btn-primary m-r-5" asp-action="Edit" asp-route-id="@Model.ProductId">Sửa</a>
+    <a class="btn btn-default m-r-5" asp-action="Index">Trở về</a>
+</div>

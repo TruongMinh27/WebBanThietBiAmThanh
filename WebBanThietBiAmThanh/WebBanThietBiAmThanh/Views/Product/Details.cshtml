@@ -1,0 +1,213 @@
+﻿@model WebBanThietBiAmThanh.Models.Product
+
+@{ Category category = ViewBag.CurrentCat;
+    ViewData["Title"] = "Chi Tiết Sản Phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> SanPhamlienquan = ViewBag.SanPhamlienquan;
+}
+
+<div class="hero-wrap hero-bread" style="background-image: url('/assets/images/applications-hero-home-studio.jpg');">
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Shop</a></span> <span>Thông Tin Sản Phẩm</span></p>
+                <h1 class="mb-0 bread">Chi Tiết Sản Phẩm</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="/images/products/@Model.Thumb" class="image-popup"><img src="/images/products/@Model.Thumb" class="img-fluid" alt="@Model.Alias"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model.ProductName</h3>
+                <div class="rating d-flex">
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2">5.0</a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                    </p>
+                    <p class="text-left mr-4">
+                        <a href="#" class="mr-2" style="color: #000;"><span style="color: #bbb;"><span class="icon-calendar">@Model.DateModified</span></span></a>
+                    </p>
+                    <p class="text-left">
+                        <a href="/@Model.Cat.Alias" class="mr-2" style="color: #bbb;"><span style="color: #bbb;">Danh Mục : </span>@Model.Cat.CatName</a>
+                    </p>
+                </div>
+                <p class="price"><span>@Model.Price.Value.ToString("#,##0") VNĐ</span></p>
+                <p>
+                    @Model.Description
+                </p>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="form-group d-flex">
+                            <div class="select-wrap">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="input-group col-md-6 d-flex mb-3">
+                        <span class="input-group-btn mr-2">
+                            <button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
+                                <i class="ion-ios-remove"></i>
+                            </button>
+                        </span>
+                        <input type="text" id="txtsoLuong" name="txtsoLuong" class="form-control input-number" value="1" min="1" max="100">
+                        <span class="input-group-btn ml-2">
+                            <button type="button" class="quantity-right-plus btn"  data-type="plus" data-field="">
+                                <i class="ion-ios-add"></i>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-md-12">
+                        <p style="color: #000;">Kho Còn : @Model.UnitInStock KG</p>
+                    </div>
+                </div>
+                <p class="add-to-cart"><a class="btn btn-black py-3 px-5">Thêm Vào Giỏ Hàng</a></p>
+                <input hidden asp-for="ProductId" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-3 pb-3">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Chi Tiết Sản Phẩm</span>
+                <h2 class="mb-4">Sản Phẩm Khác</h2>
+               
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+
+            @if (SanPhamlienquan != null && SanPhamlienquan.Count() > 0)
+            {
+                foreach (var item in SanPhamlienquan)
+                {
+                    string _url = $"/{item.Alias}-{item.ProductId}.html";
+                    <div class="col-md-6 col-lg-3 ftco-animate">
+                        <div class="product" style="min-height:400px;">
+                            <a href="@_url" class="img-prod">
+                                <img class="img-fluid" src="/images/products/@item.Thumb" alt="@item.Alias" >
+
+                                <div class="overlay"></div>
+                            </a>
+                            <div class="text py-3 pb-4 px-3 text-center">
+                                <h3><a href="@_url">@item.ProductName</a></h3>
+                                <div class="d-flex">
+                                    <div class="pricing">
+                                        <p class="price"><span class="price-sale">@item.Price.Value.ToString("#,##0") VNĐ</span></p>
+                                    </div>
+                                </div>
+                                <div class="bottom-area d-flex px-3">
+                                    <div class="m-auto d-flex">
+                                        <a href="@_url" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                                            <span><i class="ion-ios-menu"></i></span>
+                                        </a>
+                                        <a href="@_url" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                            <span><i class="ion-ios-cart"></i></span>
+                                        </a>
+                                        <a href="@_url" class="heart d-flex justify-content-center align-items-center ">
+                                            <span><i class="ion-ios-heart"></i></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            }
+
+
+
+
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    
+    <script>
+        $(document).ready(function () {
+
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function (e) {
+
+                
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#txtsoLuong').val());
+
+                // If is not undefined
+
+                $('#txtsoLuong').val(quantity + 1);
+
+
+                // Increment
+
+            });
+
+            $('.quantity-left-minus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#txtsoLuong').val());
+
+                // If is not undefined
+
+                // Increment
+                if (quantity > 0) {
+                    $('#txtsoLuong').val(quantity - 1);
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".add-to-cart").click(function () {
+                   
+                    var productid = $('#ProductId').val();
+                    var soLuong = $('#txtsoLuong').val();
+                    $.ajax({
+                        url: '/api/cart/add',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid,
+                            amount: soLuong
+                        },
+                        success: function (response) {
+                            
+                            location.reload();
+                        },
+                        error: function (error) {
+                            alert("There was an error posting the data to the server:" + error.responseText);
+                        }
+                    });
+                });
+            });
+
+
+        });
+    </script>
+}
